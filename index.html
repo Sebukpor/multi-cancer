@@ -126,8 +126,12 @@
                 'lung_scc', 'lymph_cll', 'lymph_fl', 'lymph_mcl', 'oral_normal', 'oral_scc'];
 
             // Display the result
-            const result = `Prediction: ${classNames[predictedClassIndex]} (Confidence: ${(Math.max(...predictions) * 100).toFixed(1)}%)`;
-            resultDiv.innerText = result;
+            const predictedClassIndex = prediction.indexOf(Math.max(...prediction));
+            const confidence = (Math.max(...prediction) * 100).toFixed(2);
+
+           // Correct result display
+           const result = `Prediction: ${classNames[predictedClassIndex]} (Confidence: ${confidence}%)`;
+           resultDiv.innerText = result;
             predictButton.disabled = false; // Enable the button again
         }
     </script>
