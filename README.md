@@ -148,15 +148,20 @@ To improve model robustness, the following augmentations were applied:
 
 ---
 
+
 ## Performance Metrics
 
-- ** Training Accuracy**: 96.57%
-- ** Accuracy**: 94.59%
+- **Training Accuracy**: 96.57%
+- **Accuracy**: 94.59%
 - **Top-1 Accuracy**: 94.59%
 - **Top-5 Accuracy**: 99.98%
 - **Precision (Macro Avg)**: 0.95
 - **Recall (Macro Avg)**: 0.95
 - **F1-Score (Macro Avg)**: 0.94
+
+---
+
+This format ensures consistency and readability in your README file. Let me know if you'd like any further tweaks!
 
 ---
 
