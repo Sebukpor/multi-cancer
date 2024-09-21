@@ -149,9 +149,9 @@ To improve model robustness, the following augmentations were applied:
 ## Performance Metrics
 - **Accuracy:** 96.57%%
 - **Top-1 Accuracy:** 94.59%
- -**Top-5 Accuracy: **99.98%
-- **Precision (macro avg):** 0.95%
-- **Recall (macro avg):** 0.95%
+-**Top-5 Accuracy:** 99.98%
+- **Precision (macro avg):** 0.95
+- **Recall (macro avg):** 0.95
 - **F1-score (macro avg):**  0.94
 
 
