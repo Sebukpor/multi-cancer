@@ -146,17 +146,18 @@ To improve model robustness, the following augmentations were applied:
 - **Batch Size:** 32
 - **Training Time:** 5 epochs (you can adjust based on your needs).
 
+---
+
 ## Performance Metrics
-- **Accuracy:** 96.57%%
-- **Top-1 Accuracy:** 94.59%
--**Top-5 Accuracy:** 99.98%
-- **Precision (macro avg):** 0.95
-- **Recall (macro avg):** 0.95
-- **F1-score (macro avg):**  0.94
 
+- **Accuracy**: 96.57%
+- **Top-1 Accuracy**: 94.59%
+- **Top-5 Accuracy**: 99.98%
+- **Precision (Macro Avg)**: 0.95
+- **Recall (Macro Avg)**: 0.95
+- **F1-Score (Macro Avg)**: 0.94
 
-
-
+---
 
 ## Contributing
 We welcome contributions! If you'd like to improve the model or the web interface:
