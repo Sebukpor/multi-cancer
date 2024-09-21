@@ -84,11 +84,54 @@ The images are preprocessed using the following techniques:
 
 ## Dataset
 The model has been trained on a custom dataset that includes labeled images for multiple cancer types. The dataset includes images of:
-- **Brain Cancer**
-- **Breast Cancer**
-- **Lung Cancer**
-- **Oral Cancer**
-- And more...
+
+---
+
+# Classes of Cancer
+
+## 1. Acute Lymphoblastic Leukemia ↪ [Reference](https://www.kaggle.com/datasets/mehradaria/leukemia)
+- **all_benign**: Benign
+- **all_early**: Early
+- **all_pre**: Pre
+- **all_pro**: Pro
+
+## 2. Brain Cancer ↪ [Reference](https://figshare.com/articles/dataset/brain_tumor_dataset/1512427)
+- **brain_glioma**: Glioma
+- **brain_menin**: Meningioma
+- **brain_tumor**: Pituitary Tumor
+
+## 3. Breast Cancer ↪ [Reference](https://www.kaggle.com/datasets/anaselmasry/breast-cancer-dataset)
+- **breast_benign**: Benign
+- **breast_malignant**: Malignant
+
+## 4. Cervical Cancer ↪ [Reference](https://www.kaggle.com/datasets/prahladmehandiratta/cervical-cancer-largest-dataset-sipakmed)
+- **cervix_dyk**: Dyskeratotic
+- **cervix_koc**: Koilocytotic
+- **cervix_mep**: Metaplastic
+- **cervix_pab**: Parabasal
+- **cervix_sfi**: Superficial-Intermediate
+
+## 5. Kidney Cancer ↪ [Reference](https://www.kaggle.com/datasets/nazmul0087/ct-kidney-dataset-normal-cyst-tumor-and-stone)
+- **kidney_normal**: Normal
+- **kidney_tumor**: Tumor
+
+## 6. Lung and Colon Cancer ↪ [Reference](https://www.kaggle.com/datasets/biplobdey/lung-and-colon-cancer)
+- **colon_aca**: Colon Adenocarcinoma
+- **colon_bnt**: Colon Benign Tissue
+- **lung_aca**: Lung Adenocarcinoma
+- **lung_bnt**: Lung Benign Tissue
+- **lung_scc**: Lung Squamous Cell Carcinoma
+
+## 7. Lymphoma ↪ [Reference](https://www.kaggle.com/datasets/andrewmvd/malignant-lymphoma-classification)
+- **lymph_cll**: Chronic Lymphocytic Leukemia
+- **lymph_fl**: Follicular Lymphoma
+- **lymph_mcl**: Mantle Cell Lymphoma
+
+## 8. Oral Cancer ↪ [Reference](https://www.kaggle.com/datasets/ashenafifasilkebede/dataset)
+- **oral_normal**: Normal
+- **oral_scc**: Oral Squamous Cell Carcinoma
+
+---
 
 ### Data Augmentation
 To improve model robustness, the following augmentations were applied:
@@ -116,57 +159,6 @@ We welcome contributions! If you'd like to improve the model or the web interfac
 3. Commit your changes.
 4. Open a pull request.
 
-#Classes of Cancer
-
-##Acute Lymphoblastic Leukemia
-↪ 🔗 Ref.
-1. all_benign  Benign
-2. all_early   Early
-3. all_pre  Pre
-4. all_pro    Pro
-   
-##Brain Cancer
-↪ 🔗 Ref.
-1. brain_glioma  Glioma
-2. brain_menin Meningioma
-3. brain_tumor Pituitary Tumor
-
-##Breast Cancer
-↪ 🔗 Ref.
-1. breast_benign Benign
-2. breast_malignant  Malignant
-   
-##Cervical Cancer
-↪ 🔗 Ref.
-1. cervix_dyk Dyskeratotic
-2. cervix_koc Koilocytotic
-3. cervix_mep    Metaplastic
-4. cervix_pab Parabasal
-5. cervix_sfi    Superficial-Intermediate
-   
-##Kidney Cancer
-↪ 🔗 Ref.
-1. kidney_normal   Normal
-2. kidney_tumor Tumor
-   
-##Lung and Colon Cancer
-↪ 🔗 Ref.
-1. colon_aca    Colon Adenocarcinoma
-2. colon_bnt  Colon Benign Tissue
-3. lung_aca   Lung Adenocarcinoma
-4. lung_bnt   Lung Benign Tissue
-5. lung_scc  Lung Squamous Cell Carcinoma
-   
-##Lymphoma
-↪ 🔗 Ref.
-1. lymph_cll    Chronic Lymphocytic Leukemia
-2. lymph_fl    Follicular Lymphoma
-3. lymph_mcl Mantle Cell Lymphoma
-   
-##Oral Cancer
-↪ 🔗 Ref.
-1. oral_normal Normal
-2. oral_scc    Oral Squamous Cell Carcinom
 
    ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
