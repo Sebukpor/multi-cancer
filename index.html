@@ -76,11 +76,12 @@
     <script>
         let model;
 
-        // Force CPU backend to avoid WebGL issues
-        tf.setBackend('cpu').then(() => {
-            console.log('Using CPU backend');
-            loadModel();  // Load the model after setting the backend
-        });
+        //  WebGL 
+        tf.setBackend('webgl').then(() => {
+    console.log('Using WebGL backend');
+    loadModel();  // Load the model after setting the backend
+});
+
 
         // Load the TensorFlow.js model from your hosted path
         async function loadModel() {
