@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-Cancer Classification - DAS medhub</title>
+    <title>Multi-Cancer- DAS medhub</title>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <style>
         body {
@@ -75,6 +75,12 @@
 
     <script>
         let model;
+
+        // Force CPU backend to avoid WebGL issues
+        tf.setBackend('cpu').then(() => {
+            console.log('Using CPU backend');
+            loadModel();  // Load the model after setting the backend
+        });
 
         // Load the TensorFlow.js model from your hosted path
         async function loadModel() {
