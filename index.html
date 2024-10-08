@@ -4,29 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Cancer- DAS medhub</title>
-    <link rel="stylesheet" href="style.css"> <!-- Linking external CSS file -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>DAS <span>medhub</span></h1>
     <h2>Multi-Cancer Classification</h2>
 
-    <input type="file" id="image-upload" accept="image/*">
-    <button id="predict-button" onclick="predict()">Predict</button>
-
-    <div id="image-container">
-        <img id="uploaded-image" src="#" alt="Uploaded Image">
-    </div>
-
-    <div id="controls">
+    <!-- Controls positioned right below the header -->
+    <div id="controls-container">
+        <input type="file" id="image-upload" accept="image/*">
+        <button id="predict-button" onclick="predict()">Predict</button>
         <button id="zoom-in">Zoom In</button>
         <button id="zoom-out">Zoom Out</button>
         <button id="rotate-left">Rotate Left</button>
         <button id="rotate-right">Rotate Right</button>
     </div>
 
+    <div id="image-container">
+        <img id="uploaded-image" src="#" alt="Uploaded Image">
+    </div>
+
     <div id="result"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <script src="script.js"></script> <!-- Linking external JS file -->
+    <script src="script.js"></script>
 </body>
 </html>
