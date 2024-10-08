@@ -1,13 +1,12 @@
 # Multi-Cancer Classification Tool
 
 ## Overview
-The **Multi-Cancer Classification Tool** is a machine learning-powered web application developed by **DAS medhub** in collaboration with **Team Pinnacle Pioneers**. This tool helps classify different types of cancers based on medical images, providing accurate and quick results that aid medical specialists in diagnosis.
+The **Multi-Cancer Classification Tool** is a machine learning-powered web application developed by **DAS medhub**. This tool helps classify different types of cancers based on medical images, providing accurate and quick results that aid medical specialists in diagnosis.
 
 The application uses a TensorFlow.js model hosted on GitHub and can be accessed via a simple web interface. Users can upload medical images, and the model will predict the cancer type based on its training.
 
 ### Developed By:
 - **DAS**- Medhub (healthtech start-up)
-- **Team Pinnacle Pioneers**
 
 ## Features
 - **Multi-Cancer Classification:** Supports classification for several cancer types such as:
@@ -181,4 +180,4 @@ For more information, reach out to us at:
 - **Email:** [dasmedhub@outlook.com](mailto:dasmedhub@outlook.com)
 
 ### Credits
-Developed by **DAS medhub** and **Team Pinnacle Pioneers**.
+Developed by **DAS medhub**
