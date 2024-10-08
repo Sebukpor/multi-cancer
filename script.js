@@ -30,18 +30,20 @@ const rotateRightButton = document.getElementById('rotate-right');
 
 // Image Upload Event
 imageUpload.addEventListener('change', (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+        const file = event.target.files[0];
+        const reader = new FileReader();
 
-    reader.onload = function (e) {
-        uploadedImage.src = e.target.result; // Set the image source
-        uploadedImage.style.display = 'block'; // Show the image
-        predictButton.style.display = 'inline-block'; // Show predict button
-    };
+        resultDiv.innerText = '';  // Clear the previous prediction result
 
-    if (file) {
-        reader.readAsDataURL(file); // Read the image file as a data URL
-    }
+        reader.onload = function(e) {
+            uploadedImage.src = e.target.result;  // Set the image source to the file content
+            uploadedImage.style.display = 'block';  // Show the image
+            predictButton.style.display = 'inline-block';  // Show the predict button
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);  // Read the image file as a data URL
+        }
 });
 
 // Predict Function
