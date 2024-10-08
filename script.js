@@ -57,11 +57,14 @@ async function predict() {
             .div(tf.scalar(255)) // Normalize to [0, 1]
             .expandDims(); // Add batch dimension
 
-        // Make prediction
-        const logits = model.predict(tensorImg);
-        const predictions = logits.arraySync()[0];
+    
+            // Make the prediction
+            const logits = model.predict(tensorImg);
+            const predictions = logits.arraySync()[0];  // Get raw predictions
+            console.log('Raw Predictions:', predictions);  // Log raw predictions
 
-         const classNames = ['Acute Lymphoblastic Leukemia Benign', 'Acute Lymphoblastic Leukemia Early', 'Acute Lymphoblastic Leukemia Pre', 'Acute Lymphoblastic Leukemia Pro', 
+            // Ensure that the class names match your model's class labels
+            const classNames = ['Acute Lymphoblastic Leukemia Benign', 'Acute Lymphoblastic Leukemia Early', 'Acute Lymphoblastic Leukemia Pre', 'Acute Lymphoblastic Leukemia Pro', 
                 'Brain Glioma', 'Brain Meningioma', 'Brain Tumor', 
                 'Breast Benign', 'Breast Malignant', 
                 'Cervix Dyskeratotic', 'Cervix Koilocytotic', 'Cervix Metaplastic', 'Cervix Parabasal', 
@@ -71,17 +74,26 @@ async function predict() {
                 'Chronic Lymphocytic Leukemia', 'Follicular Lymphoma', 'Mantle Cell Lymphoma', 
                 'Oral Normal', 'Oral Squamous Cell Carcinoma'];
 
-        const predictedClassIndex = predictions.indexOf(Math.max(...predictions));
-        const result = `Prediction: ${classNames[predictedClassIndex]} (Confidence: ${(Math.max(...predictions) * 100).toFixed(1)}%)`;
-        resultDiv.innerText = result;
+            // Get the top prediction
+            const predictedClassIndex = predictions.indexOf(Math.max(...predictions));
+            const result = `Prediction: ${classNames[predictedClassIndex]} (Confidence: ${(Math.max(...predictions) * 100).toFixed(1)}%)`;
+            resultDiv.innerText = result;
 
-        predictButton.disabled = false; // Enable the button again
-    } catch (error) {
-        console.error('Error making prediction:', error);
-        resultDiv.innerText = 'Error making prediction';
-        predictButton.disabled = false;
+            // Display top 3 predictions
+            console.log('Top 3 Predictions:');
+            const sortedPredictions = predictions.slice().sort((a, b) => b - a);
+            const top3Predictions = sortedPredictions.slice(0, 3);
+            top3Predictions.forEach((prediction, index) => {
+                console.log(`Rank ${index + 1}: ${classNames[predictions.indexOf(prediction)]} (Confidence: ${(prediction * 100).toFixed(1)}%)`);
+            });
+
+            predictButton.disabled = false;  // Enable the button again
+        } catch (error) {
+            console.error('Error making prediction:', error);
+            resultDiv.innerText = 'Error making prediction, refresh browser';
+            predictButton.disabled = false;
+        }
     }
-}
 
 // Image Manipulation Functions
 zoomInButton.addEventListener('click', () => {
