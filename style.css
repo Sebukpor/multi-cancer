@@ -14,6 +14,33 @@ h1 span {
     color: #FFA500; /* Orange for medhub */
 }
 
+#controls-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#controls-container button {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#controls-container button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#image-upload {
+    margin-top: 10px;
+}
+
 #image-container {
     margin-top: 20px;
     display: flex;
@@ -24,11 +51,12 @@ h1 span {
     border: 2px solid #ccc;
     padding: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Prevent overflow when zooming */
 }
 
 #uploaded-image {
     max-width: 80%;
-    max-height: 300px;
+    max-height: 400px; /* Increased height for better zooming */
     display: none;
     transform-origin: center; /* To apply zoom and rotate */
 }
@@ -37,43 +65,4 @@ h1 span {
     margin-top: 20px;
     font-size: 1.5em;
     font-weight: bold;
-}
-
-#predict-button {
-    display: none;
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#predict-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-#controls {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-#controls button {
-    padding: 10px 20px;
-    font-size: 14px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#controls button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
 }
