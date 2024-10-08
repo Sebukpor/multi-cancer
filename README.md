@@ -37,19 +37,10 @@ Key Components:
 - A browser (Chrome, Firefox, etc.)
 - Internet connection (for loading the model from GitHub)
 
-### Running Locally
 
-1. Clone this repository:
-    ```bash
-    git clone https://github.com/sebukpor/multi-cancer.git
     ```
 
-2. Open `index.html` in your preferred browser:
-    ```bash
-    open index.html
-    ```
-
-3. Upload an image and press **Predict**. The model will classify the image and display the predicted cancer type.
+1. Upload an image and press **Predict**. The model will classify the image and display the predicted cancer type.
 
 ### Hosting on GitHub Pages
 To host the tool on GitHub Pages:
@@ -143,33 +134,22 @@ To improve model robustness, the following augmentations were applied:
 - **Optimizer:** Adam optimizer with a learning rate of `1e-4`.
 - **Loss Function:** Categorical Cross-Entropy.
 - **Batch Size:** 32
-- **Training Time:** 5 epochs (you can adjust based on your needs).
+- **Training Time:** 21 epochs (you can adjust based on your needs).
 
 ---
 
 
 ## Performance Metrics
 
-- **Training Accuracy**: 96.57%
-- **Accuracy**: 94.59%
-- **Top-1 Accuracy**: 94.59%
-- **Top-5 Accuracy**: 99.98%
-- **Precision (Macro Avg)**: 0.95
-- **Recall (Macro Avg)**: 0.95
-- **F1-Score (Macro Avg)**: 0.94
+- **Training Accuracy**: 99.52%
+- **Accuracy**: 99.52%
+- **Top-1 Accuracy**: 99.52%
+- **Top-5 Accuracy**: 100.00%
+- **Precision (Macro Avg)**: 1.00
+- **Recall (Macro Avg)**: 1.00
+- **F1-Score (Macro Avg)**: 1.00
 
 ---
-
-This format ensures consistency and readability in your README file. Let me know if you'd like any further tweaks!
-
----
-
-## Contributing
-We welcome contributions! If you'd like to improve the model or the web interface:
-1. Fork the repository.
-2. Create a new branch (`feature/my-feature`).
-3. Commit your changes.
-4. Open a pull request.
 
 
    ## License
