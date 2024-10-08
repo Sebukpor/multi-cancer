@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Cancer- DAS medhub</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>DAS <span>medhub</span></h1>
     <h2>Multi-Cancer Classification</h2>
 
-    <!-- Controls positioned right below the header -->
+    <!-- Buttons fixed at the top -->
     <div id="controls-container">
         <input type="file" id="image-upload" accept="image/*">
         <button id="predict-button" onclick="predict()">Predict</button>
@@ -20,6 +20,7 @@
         <button id="rotate-right">Rotate Right</button>
     </div>
 
+    <!-- Centered image below the buttons -->
     <div id="image-container">
         <img id="uploaded-image" src="#" alt="Uploaded Image">
     </div>
