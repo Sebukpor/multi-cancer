@@ -23,6 +23,28 @@ h1 span {
     margin: 5px;
     padding: 10px;
     font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#predict-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+#zoom-in, #zoom-out {
+    background-color: #008CBA; /* Blue */
+    color: white;
+}
+
+#rotate-left, #rotate-right {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+#controls button:hover {
+    opacity: 0.8;
 }
 
 #image-container {
@@ -44,4 +66,20 @@ h1 span {
     margin-top: 20px;
     font-size: 1.5em;
     font-weight: bold;
+}
+
+/* Spinner Styles */
+.spinner {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
