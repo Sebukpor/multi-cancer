@@ -19,39 +19,18 @@ h1 span {
     margin-bottom: 20px;
 }
 
-#controls input, #controls button {
+#controls input,
+#controls button {
     margin: 5px;
     padding: 10px;
     font-size: 16px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#predict-button {
-    background-color: #4CAF50; /* Green */
-    color: white;
-}
-
-#zoom-in, #zoom-out {
-    background-color: #008CBA; /* Blue */
-    color: white;
-}
-
-#rotate-left, #rotate-right {
-    background-color: #f44336; /* Red */
-    color: white;
-}
-
-#controls button:hover {
-    opacity: 0.8;
 }
 
 #image-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 400px;  /* Adjust for reasonable initial image size */
+    height: 400px;
     position: relative;
 }
 
@@ -68,18 +47,20 @@ h1 span {
     font-weight: bold;
 }
 
-/* Spinner Styles */
-.spinner {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 90px;
-    height: 90px;
-    animation: spin 2s linear infinite;
-    margin: 20px auto;
+#demographics-form label {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+#demographics-form input,
+#demographics-form select {
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+#demographics-form button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
 }
