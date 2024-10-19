@@ -12,7 +12,7 @@ tf.setBackend('webgl').then(() => {
 // Load the TensorFlow.js model
 async function loadModel() {
     try {
-        model = await tf.loadGraphModel('model/model.json');
+        model = await tf.loadGraphModel('model/model.json');  // Adjust model path accordingly
         console.log('Model loaded successfully');
     } catch (error) {
         console.error('Error loading model:', error);
@@ -67,6 +67,7 @@ async function predict() {
         const predictions = logits.arraySync()[0];  // Get raw predictions
         console.log('Raw Predictions:', predictions);
 
+       
         // Class names must match your model's labels
         const classNames = ['Acute Lymphoblastic Leukemia Benign', 'Acute Lymphoblastic Leukemia Early', 'Acute Lymphoblastic Leukemia Pre', 'Acute Lymphoblastic Leukemia Pro', 
             'Brain Glioma', 'Brain Meningioma', 'Brain Tumor', 
@@ -84,13 +85,12 @@ async function predict() {
         resultDiv.innerText = result;
 
         // Get top 3 predictions
-        console.log('Top 3 Predictions:');
         const sortedPredictions = predictions.slice().sort((a, b) => b - a);
         top3Results = sortedPredictions.slice(0, 3).map(prediction => {
             const index = predictions.indexOf(prediction);
             return `${classNames[index]} (Confidence: ${(prediction * 100).toFixed(1)}%)`;
         });
-        console.log(top3Results);
+        console.log('Top 3 Predictions:', top3Results);
 
         // Enable "Download Result" button
         downloadPdfButton.style.display = 'inline-block';
@@ -171,4 +171,5 @@ function generatePDF(mainPrediction, top3Predictions, imageUrl) {
     // Hide the form after generating PDF
     document.getElementById('demographics-form').style.display = 'none';
 }
+
 
