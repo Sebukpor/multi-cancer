@@ -1,26 +1,19 @@
 let model;
-let scale = 1; // For zoom
-let rotate = 0; // For rotation
+let scale = 1;  // For zoom
+let rotate = 0;  // For rotation
+let top3Results = [];  // To store top 3 predictions
 
 // Load TensorFlow.js with WebGL backend
 tf.setBackend('webgl').then(() => {
     console.log('Using WebGL backend');
-    showLoadingSpinner(true);  // Show loading spinner while model is loading
     loadModel();
 });
-
-// Show or hide the loading spinner
-function showLoadingSpinner(show) {
-    const spinner = document.getElementById('loading-spinner');
-    spinner.style.display = show ? 'block' : 'none';
-}
 
 // Load the TensorFlow.js model
 async function loadModel() {
     try {
         model = await tf.loadGraphModel('model/model.json');
         console.log('Model loaded successfully');
-        showLoadingSpinner(false);  // Hide the spinner when model is loaded
     } catch (error) {
         console.error('Error loading model:', error);
     }
@@ -35,45 +28,46 @@ const zoomInButton = document.getElementById('zoom-in');
 const zoomOutButton = document.getElementById('zoom-out');
 const rotateLeftButton = document.getElementById('rotate-left');
 const rotateRightButton = document.getElementById('rotate-right');
+const downloadPdfButton = document.getElementById('download-pdf');
 
 // Image Upload Event
 imageUpload.addEventListener('change', (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
 
-    resultDiv.innerText = '';  // Clear the previous prediction result
+    resultDiv.innerText = '';  // Clear previous predictions
 
-    reader.onload = function(e) {
-        uploadedImage.src = e.target.result;  // Set the image source to the file content
-        uploadedImage.style.display = 'block';  // Show the image
-        predictButton.style.display = 'inline-block';  // Show the predict button
+    reader.onload = function (e) {
+        uploadedImage.src = e.target.result;
+        uploadedImage.style.display = 'block';
+        predictButton.style.display = 'inline-block';
+        predictButton.disabled = false;  // Enable the predict button
     };
 
     if (file) {
-        reader.readAsDataURL(file);  // Read the image file as a data URL
+        reader.readAsDataURL(file);
     }
 });
 
 // Predict Function
 async function predict() {
     try {
-        predictButton.disabled = true; // Disable the button during prediction
+        predictButton.disabled = true;  // Disable during prediction
         resultDiv.innerText = 'Predicting...';
-        showLoadingSpinner(true);  // Show loading spinner during prediction
 
-        // Preprocess image (resize, normalize, expand dimensions)
+        // Preprocess image
         const tensorImg = tf.browser.fromPixels(uploadedImage)
-            .resizeBilinear([224, 224]) // Resize to model input shape
+            .resizeBilinear([224, 224])
             .toFloat()
-            .div(tf.scalar(255)) // Normalize to [0, 1]
-            .expandDims(); // Add batch dimension
+            .div(tf.scalar(255))
+            .expandDims();
 
         // Make the prediction
         const logits = model.predict(tensorImg);
         const predictions = logits.arraySync()[0];  // Get raw predictions
-        console.log('Raw Predictions:', predictions);  // Log raw predictions
+        console.log('Raw Predictions:', predictions);
 
-        // Ensure that the class names match your model's class labels
+        // Class names must match your model's labels
         const classNames = ['Acute Lymphoblastic Leukemia Benign', 'Acute Lymphoblastic Leukemia Early', 'Acute Lymphoblastic Leukemia Pre', 'Acute Lymphoblastic Leukemia Pro', 
             'Brain Glioma', 'Brain Meningioma', 'Brain Tumor', 
             'Breast Benign', 'Breast Malignant', 
@@ -89,21 +83,22 @@ async function predict() {
         const result = `Prediction: ${classNames[predictedClassIndex]} (Confidence: ${(Math.max(...predictions) * 100).toFixed(1)}%)`;
         resultDiv.innerText = result;
 
-        // Display top 3 predictions
+        // Get top 3 predictions
         console.log('Top 3 Predictions:');
         const sortedPredictions = predictions.slice().sort((a, b) => b - a);
-        const top3Predictions = sortedPredictions.slice(0, 3);
-        top3Predictions.forEach((prediction, index) => {
-            console.log(`Rank ${index + 1}: ${classNames[predictions.indexOf(prediction)]} (Confidence: ${(prediction * 100).toFixed(1)}%)`);
+        top3Results = sortedPredictions.slice(0, 3).map(prediction => {
+            const index = predictions.indexOf(prediction);
+            return `${classNames[index]} (Confidence: ${(prediction * 100).toFixed(1)}%)`;
         });
+        console.log(top3Results);
 
-        predictButton.disabled = false;  // Enable the button again
-        showLoadingSpinner(false);  // Hide loading spinner after prediction
+        // Enable "Download Result" button
+        downloadPdfButton.style.display = 'inline-block';
+        downloadPdfButton.disabled = false;
     } catch (error) {
         console.error('Error making prediction:', error);
-        resultDiv.innerText = 'Error making prediction, refresh browser';
+        resultDiv.innerText = 'Error making prediction. Try again.';
         predictButton.disabled = false;
-        showLoadingSpinner(false);  // Hide loading spinner in case of error
     }
 }
 
@@ -127,3 +122,53 @@ rotateRightButton.addEventListener('click', () => {
     rotate += 90;
     uploadedImage.style.transform = `scale(${scale}) rotate(${rotate}deg)`;
 });
+
+// Show form and collect demographics
+downloadPdfButton.addEventListener('click', () => {
+    document.getElementById('demographics-form').style.display = 'block';
+});
+
+// Generate PDF after filling out the form
+document.getElementById('generate-pdf').addEventListener('click', () => {
+    generatePDF(resultDiv.innerText, top3Results, uploadedImage.src);
+});
+
+// Generate a PDF with patient demographics, predictions, and image
+function generatePDF(mainPrediction, top3Predictions, imageUrl) {
+    const name = document.getElementById('name').value;
+    const age = document.getElementById('age').value;
+    const gender = document.getElementById('gender').value;
+
+    // Validate form data
+    if (!name || !age || !gender) {
+        alert('Please fill out all demographic fields.');
+        return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Add demographics and results
+    doc.setFontSize(16);
+    doc.text("Multi-Cancer Classification Result", 10, 10);
+    doc.setFontSize(12);
+    doc.text(`Patient Name: ${name}`, 10, 20);
+    doc.text(`Age: ${age}`, 10, 30);
+    doc.text(`Gender: ${gender}`, 10, 40);
+    doc.text(`Main Prediction: ${mainPrediction}`, 10, 50);
+    doc.text("Top 3 Predictions:", 10, 60);
+
+    top3Predictions.forEach((prediction, index) => {
+        doc.text(`${index + 1}. ${prediction}`, 10, 70 + (index * 10));
+    });
+
+    // Add uploaded image to PDF
+    doc.addImage(imageUrl, 'JPEG', 10, 100, 180, 120);
+
+    // Save the PDF
+    doc.save('multi-cancer-prediction-result.pdf');
+
+    // Hide the form after generating PDF
+    document.getElementById('demographics-form').style.display = 'none';
+}
+
