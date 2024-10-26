@@ -133,7 +133,6 @@ document.getElementById('generate-pdf').addEventListener('click', () => {
     generatePDF(resultDiv.innerText, top3Results, uploadedImage.src);
 });
 
-// Generate a PDF with patient demographics, predictions, and image
 function generatePDF(mainPrediction, top3Predictions, imageUrl) {
     const name = document.getElementById('name').value;
     const patient_id = document.getElementById('patient_id').value;
@@ -141,7 +140,7 @@ function generatePDF(mainPrediction, top3Predictions, imageUrl) {
     const gender = document.getElementById('gender').value;
 
     // Validate form data
-    if (!name ||!patient_id || !age || !gender) {
+    if (!name || !patient_id || !age || !gender) {
         alert('Please fill out all demographic fields.');
         return;
     }
@@ -152,20 +151,30 @@ function generatePDF(mainPrediction, top3Predictions, imageUrl) {
     // Add demographics and results
     doc.setFontSize(16);
     doc.text("Multi-Cancer Classification Result", 10, 10);
+    
     doc.setFontSize(12);
-    doc.text(`Patient Name: ${name}`, 10, 20);
-    doc.text(`Patient ID: ${patient_id}`, 10, 30);
-    doc.text(`Age: ${age}`, 10, 40);
-    doc.text(`Gender: ${gender}`, 10, 50);
-    doc.text(`Main Prediction: ${mainPrediction}`, 10, 60);
-    doc.text("Top 3 Predictions:", 10, 70);
+    let y = 20; // Start y-position for demographic details
 
+    doc.text(`Patient Name: ${name}`, 10, y);
+    y += 10; // Adjust spacing for the next line
+    doc.text(`Patient ID: ${patient_id}`, 10, y);
+    y += 10;
+    doc.text(`Age: ${age}`, 10, y);
+    y += 10;
+    doc.text(`Gender: ${gender}`, 10, y);
+    y += 10;
+    doc.text(`Main Prediction: ${mainPrediction}`, 10, y);
+    y += 10;
+    doc.text("Top 3 Predictions:", 10, y);
+
+    // Add top predictions list
     top3Predictions.forEach((prediction, index) => {
-        doc.text(`${index + 1}. ${prediction}`, 10, 70 + (index * 10));
+        y += 10;
+        doc.text(`${index + 1}. ${prediction}`, 10, y);
     });
 
     // Add uploaded image to PDF
-    doc.addImage(imageUrl, 'JPEG', 10, 100, 180, 120);
+    doc.addImage(imageUrl, 'JPEG', 10, y + 20, 180, 120);
 
     // Save the PDF
     doc.save('multi-cancer-prediction-result.pdf');
@@ -173,5 +182,6 @@ function generatePDF(mainPrediction, top3Predictions, imageUrl) {
     // Hide the form after generating PDF
     document.getElementById('demographics-form').style.display = 'none';
 }
+
 
 
