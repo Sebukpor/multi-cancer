@@ -154,11 +154,11 @@ function generatePDF(mainPrediction, top3Predictions, imageUrl) {
     doc.text("Multi-Cancer Classification Result", 10, 10);
     doc.setFontSize(12);
     doc.text(`Patient Name: ${name}`, 10, 20);
-    doc.text(`Patient ID: ${patient_id}`, 10, 20);
-    doc.text(`Age: ${age}`, 10, 30);
-    doc.text(`Gender: ${gender}`, 10, 40);
-    doc.text(`Main Prediction: ${mainPrediction}`, 10, 50);
-    doc.text("Top 3 Predictions:", 10, 60);
+    doc.text(`Patient ID: ${patient_id}`, 10, 30);
+    doc.text(`Age: ${age}`, 10, 40);
+    doc.text(`Gender: ${gender}`, 10, 50);
+    doc.text(`Main Prediction: ${mainPrediction}`, 10, 60);
+    doc.text("Top 3 Predictions:", 10, 70);
 
     top3Predictions.forEach((prediction, index) => {
         doc.text(`${index + 1}. ${prediction}`, 10, 70 + (index * 10));
