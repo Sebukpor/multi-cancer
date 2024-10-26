@@ -136,11 +136,12 @@ document.getElementById('generate-pdf').addEventListener('click', () => {
 // Generate a PDF with patient demographics, predictions, and image
 function generatePDF(mainPrediction, top3Predictions, imageUrl) {
     const name = document.getElementById('name').value;
+    const patient_id = document.getElementById('patient_id').value;
     const age = document.getElementById('age').value;
     const gender = document.getElementById('gender').value;
 
     // Validate form data
-    if (!name || !age || !gender) {
+    if (!name ||!patient_id || !age || !gender) {
         alert('Please fill out all demographic fields.');
         return;
     }
@@ -153,6 +154,7 @@ function generatePDF(mainPrediction, top3Predictions, imageUrl) {
     doc.text("Multi-Cancer Classification Result", 10, 10);
     doc.setFontSize(12);
     doc.text(`Patient Name: ${name}`, 10, 20);
+    doc.text(`Patient ID: ${patient_id}`, 10, 20);
     doc.text(`Age: ${age}`, 10, 30);
     doc.text(`Gender: ${gender}`, 10, 40);
     doc.text(`Main Prediction: ${mainPrediction}`, 10, 50);
