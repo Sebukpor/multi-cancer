@@ -12,7 +12,7 @@ tf.setBackend('webgl').then(() => {
 // Load the TensorFlow.js model
 async function loadModel() {
     try {
-        model = await tf.loadGraphModel('https://dasmedhubweightfiles.blob.core.windows.net/dasmedhub-models/model.json?sp=r&st=2024-11-04T13:03:18Z&se=2024-11-29T21:03:18Z&sv=2022-11-02&sr=b&sig=ceteUzwBtdwCG0ot2bAj%2FXI7hkgNMweuD%2FdMNbku5gE%3D');  // Adjust model path accordingly
+        model = await tf.loadGraphModel('https://dasmedhubweightfiles.blob.core.windows.net/dasmedhub-models/model.json');
         console.log('Model loaded successfully');
     } catch (error) {
         console.error('Error loading model:', error);
@@ -67,8 +67,7 @@ async function predict() {
         const predictions = logits.arraySync()[0];  // Get raw predictions
         console.log('Raw Predictions:', predictions);
 
-       
-        // Class names must match your model's labels
+        // Class names
         const classNames = ['Acute Lymphoblastic Leukemia Benign', 'Acute Lymphoblastic Leukemia Early', 'Acute Lymphoblastic Leukemia Pre', 'Acute Lymphoblastic Leukemia Pro', 
             'Brain Glioma', 'Brain Meningioma', 'Brain Tumor', 
             'Breast Benign', 'Breast Malignant', 
@@ -85,11 +84,11 @@ async function predict() {
         resultDiv.innerText = result;
 
         // Get top 3 predictions
-        const sortedPredictions = predictions.slice().sort((a, b) => b - a);
-        top3Results = sortedPredictions.slice(0, 3).map(prediction => {
-            const index = predictions.indexOf(prediction);
-            return `${classNames[index]} (Confidence: ${(prediction * 100).toFixed(1)}%)`;
-        });
+        top3Results = Array.from(predictions)
+            .map((score, index) => ({ className: classNames[index], confidence: score }))
+            .sort((a, b) => b.confidence - a.confidence)
+            .slice(0, 3)
+            .map(({ className, confidence }) => `${className} (Confidence: ${(confidence * 100).toFixed(1)}%)`);
         console.log('Top 3 Predictions:', top3Results);
 
         // Enable "Download Result" button
@@ -139,7 +138,6 @@ function generatePDF(mainPrediction, top3Predictions, imageUrl) {
     const age = document.getElementById('age').value;
     const gender = document.getElementById('gender').value;
 
-    // Validate form data
     if (!name || !patient_id || !age || !gender) {
         alert('Please fill out all demographic fields.');
         return;
@@ -148,15 +146,14 @@ function generatePDF(mainPrediction, top3Predictions, imageUrl) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Add demographics and results
     doc.setFontSize(16);
     doc.text("Multi-Cancer Classification Result", 10, 10);
     
     doc.setFontSize(12);
-    let y = 20; // Start y-position for demographic details
+    let y = 20;
 
     doc.text(`Patient Name: ${name}`, 10, y);
-    y += 10; // Adjust spacing for the next line
+    y += 10;
     doc.text(`Patient ID: ${patient_id}`, 10, y);
     y += 10;
     doc.text(`Age: ${age}`, 10, y);
@@ -167,21 +164,13 @@ function generatePDF(mainPrediction, top3Predictions, imageUrl) {
     y += 10;
     doc.text("Top 3 Predictions:", 10, y);
 
-    // Add top predictions list
     top3Predictions.forEach((prediction, index) => {
         y += 10;
         doc.text(`${index + 1}. ${prediction}`, 10, y);
     });
 
-    // Add uploaded image to PDF
     doc.addImage(imageUrl, 'JPEG', 10, y + 20, 180, 120);
 
-    // Save the PDF
     doc.save('multi-cancer-prediction-result.pdf');
-
-    // Hide the form after generating PDF
     document.getElementById('demographics-form').style.display = 'none';
 }
-
-
-
