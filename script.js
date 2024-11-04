@@ -12,7 +12,7 @@ tf.setBackend('webgl').then(() => {
 // Load the TensorFlow.js model
 async function loadModel() {
     try {
-        model = await tf.loadGraphModel(https://dasmedhubweightfiles.blob.core.windows.net/dasmedhub-models/model.json?sp=r&st=2024-11-04T13:03:18Z&se=2024-11-29T21:03:18Z&sv=2022-11-02&sr=b&sig=ceteUzwBtdwCG0ot2bAj%2FXI7hkgNMweuD%2FdMNbku5gE%3D');  // Adjust model path accordingly
+        model = await tf.loadGraphModel('https://dasmedhubweightfiles.blob.core.windows.net/dasmedhub-models/model.json?sp=r&st=2024-11-04T13:03:18Z&se=2024-11-29T21:03:18Z&sv=2022-11-02&sr=b&sig=ceteUzwBtdwCG0ot2bAj%2FXI7hkgNMweuD%2FdMNbku5gE%3D');  // Adjust model path accordingly
         console.log('Model loaded successfully');
     } catch (error) {
         console.error('Error loading model:', error);
